@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course-O-Rama</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cs.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #f72585;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        #class1 {
+            text-align: center;
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        #class2 {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin: 20px 0 10px;
+            font-weight: 600;
+        }
+        
+        .search-container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .search-container:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 8px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .search-bar:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        button[type="submit"] {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 10px;
+            width: 100%;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        h2 {
+            color: var(--secondary);
+            margin: 25px 0 15px;
+            font-size: 1.5rem;
+        }
+        
+        ul {
+            list-style-type: none;
+        }
+        
+        li {
+            background: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        li:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        li strong {
+            color: var(--primary);
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .course-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .course-info span {
+            background: var(--light);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--dark);
+        }
+        
+        .platform {
+            background: var(--accent) !important;
+            color: white !important;
+        }
+        
+        .price {
+            background: var(--success) !important;
+            color: white !important;
+        }
+        
+        .category {
+            background: var(--warning) !important;
+            color: white !important;
+        }
+        
+        @media (min-width: 768px) {
+            .interest-fields {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
+            }
+            
+            button[type="submit"] {
+                width: auto;
+                padding: 12px 30px;
+            }
+        }
+        
+        /* Animation for results */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        ul li {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        ul li:nth-child(1) { animation-delay: 0.1s; }
+        ul li:nth-child(2) { animation-delay: 0.2s; }
+        ul li:nth-child(3) { animation-delay: 0.3s; }
+        ul li:nth-child(4) { animation-delay: 0.4s; }
+        ul li:nth-child(5) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <h1 id="class1">Course-O-Rama</h1>
+
+    <!-- Main form that contains both search types -->
+    <form method="POST">
+        <!-- Interests-based Search Section -->
+        <div class="search-container">
+            <p id="class2">Hello user! What areas interest you?</p>
+            <div class="interest-fields">
+                <input type="text" name="search1" class="search-bar" placeholder="Area 1 (e.g., Programming)">
+                <input type="text" name="search2" class="search-bar" placeholder="Area 2 (e.g., Design)">
+                <input type="text" name="search3" class="search-bar" placeholder="Area 3 (e.g., Business)">
+            </div>
+            <button type="submit" name="submit_button" value="interests">Search by Interests</button>
+        </div>
+
+        <!-- Specific Course Search Section -->
+        <div class="search-container">
+            <p id="class2">What course do you want to study?</p>
+            <input type="text" name="course_search" class="search-bar" placeholder="Enter your course (e.g., Python for Beginners)">
+            <button type="submit" name="submit_button" value="course">Search by Course</button>
+        </div>
+    </form>
+
+    <!-- Results Sections -->
+    {% if interest_recommendations %}
+        <h2>Recommended Courses Based on Your Interests:</h2>
+        <ul>
+            {% for course in interest_recommendations %}
+                <li>
+                    <strong>{{ course['Title'] }}</strong>
+                    <div class="course-info">
+                        <span class="price">price - ${{ course['Price'] }}</span>
+                        <span class="category">category - {{ course['Category'] }}</span>
+                        <span>duration - {{ course['Duration'] }}</span>
+                        <span class="platform">platform - {{ course['Platform'] }}</span>
+                        <span class="rating">rating - {{ course['Rating'] }}</span>
+                        <span class="reviewcount">review count - {{ course['ReviewCount'] }}</span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if course_recommendations %}
+        <h2>Similar Courses:</h2>
+        <ul>
+            {% for course in course_recommendations %}
+                <li>
+                    <strong>{{ course['Title'] }}</strong>
+                    <div class="course-info">
+                        <span class="price">Price - ${{ course['Price'] }}</span>
+                        <span class="category">category - {{ course['Category'] }}</span>
+                        <span>Duration - {{ course['Duration'] }}</span>
+                        <span class="platform">Platform - {{ course['Platform'] }}</span>
+                        <span class="rating">rating - {{ course['Rating'] }}</span>
+                        <span class="reviewcount">review count - {{ course['ReviewCount'] }}</span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <script>
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add focus effects to search bars
+            const searchBars = document.querySelectorAll('.search-bar');
+            searchBars.forEach(bar => {
+                bar.addEventListener('focus', function() {
+                    this.parentElement.parentElement.style.transform = 'scale(1.02)';
+                });
+                bar.addEventListener('blur', function() {
+                    this.parentElement.parentElement.style.transform = 'scale(1)';
+                });
+            });
+            
+            // Smooth scroll to results when they appear
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function() {
+                setTimeout(() => {
+                    if(document.querySelector('ul')) {
+                        document.querySelector('ul').scrollIntoView({ 
+                            behavior: 'smooth' 
+                        });
+                    }
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
